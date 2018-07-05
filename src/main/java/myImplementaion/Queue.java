@@ -68,19 +68,4 @@ class Queue<T> {
     public int getSize() {
         return size;
     }
-
-    /**
-     * A simple test driver for the queue.
-     * It creates the queue, inserts and element, and then
-     * fetches and prints the element.
-     */
-    public static void main(String[] args) throws Exception {
-        // Create a queue of integers of size 10
-        Queue<Integer> q = new Queue<Integer>(4);
-        // Insert a number
-        q.enqueue(42);
-        // Get an element form the queue and print it
-        System.out.println(q.dequeue());
-    }
-
 }
