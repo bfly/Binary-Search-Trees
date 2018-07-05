@@ -7,6 +7,7 @@ public class BinaryTree<T extends Comparable> {
     private Node<T> root;
     private int count = 0;
     private int depth = 0;
+    private Queue<T> queue;
 
     public Node<T> getRoot() {
         return root;
@@ -83,6 +84,34 @@ public class BinaryTree<T extends Comparable> {
         }
     }
 */
+    public boolean validateBST() {
+        queue = new Queue<>(count);
+        validateBST(root);
+        T previous = null;
+        try {
+            previous = queue.dequeue();
+            while(!queue.isEmpty()) {
+                T next = queue.dequeue();
+                if(previous.compareTo(next) > 0) return false;
+                previous = next;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    private void validateBST(Node<T> node) {
+        if (node != null) {
+            validateBST(node.getLeftChild());
+            try {
+                queue.enqueue(node.getKey());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            validateBST(node.getRightChild());
+        }
+    }
 
     public Node<T> findNode(T key) {
         // Start at the top of the tree
@@ -186,7 +215,7 @@ public class BinaryTree<T extends Comparable> {
         return replacement;
     }
 
-    public int depthOfTree(Node node) {
+    public int depthOfTree(Node<T> node) {
         if (null == node) return 0;
         int hLeftSub = depthOfTree(node.getLeftChild());
         int hRightSub = depthOfTree(node.getRightChild());
